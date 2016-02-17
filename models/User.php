@@ -23,7 +23,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return 'prm_user';
+        return 'blg_user';
 
     }
 
@@ -84,7 +84,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function saltGenerator ()
     {
-        return hash('sha521', uniqid('salt_', true));
+        return hash('sha512', uniqid('salt_', true));
     }
 
     /**
@@ -95,7 +95,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function passWithSalt ($password, $salt)
     {
-        return hssh('sha512', ($password . $salt));
+        return hash('sha512', ($password . $salt));
     }
 
     /**
