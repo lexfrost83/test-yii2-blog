@@ -45,7 +45,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id' => _(ID),
+            'id' => _('ID'),
             'name' => _('Имя'),
             'surname' => _('Фамилия'),
             'password' => _('Пароль'),
@@ -84,7 +84,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function saltGenerator ()
     {
-        return hash('sha512', uniqid('salt_', true));
+        return hash("sha512", uniqid('salt_', true));
     }
 
     /**
@@ -95,7 +95,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function passWithSalt ($password, $salt)
     {
-        return hash('sha512', ($password . $salt));
+        return hash("sha512", $password . $salt);
     }
 
     /**
@@ -130,7 +130,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getId ()
     {
-        return $this->getPrimaryKey()['id'];
+        return $this->getPrimaryKey()["id"];
     }
 
     /**
@@ -157,7 +157,17 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password == $this->passWithSalt($password, $this->salt);
+        return $this->password === $this->passWithSalt($password, $this->salt);
+    }
+
+    /**
+     * Generates password hash from password and sets it to the model
+     *
+     * @param string $password
+     */
+    public function setPassword ($password)
+    {
+        $this->password = $this->passWithSalt($password, $this->saltGenerator());
     }
 
     /**
