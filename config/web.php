@@ -16,7 +16,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                //'' => 'site/index',
-               // '<action>'=>'site/<action>',
+               //'<action>'=>'site/<action>',
             ],
         ],
         'cache' => [
@@ -25,6 +25,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'autoRenewCookie' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
